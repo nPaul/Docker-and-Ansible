@@ -1,0 +1,71 @@
+ansible -i hosts.ini demo -m setup -a "filter=ansible_default_ipv4"
+server1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_default_ipv4": {
+            "address": "192.168.88.79",
+            "alias": "enp0s3",
+            "broadcast": "192.168.88.255",
+            "gateway": "192.168.88.1",
+            "interface": "enp0s3",
+            "macaddress": "08:00:27:5f:fc:cc",
+            "mtu": 1500,
+            "netmask": "255.255.255.0",
+            "network": "192.168.88.0",
+            "prefix": "24",
+            "type": "ether"
+        }
+    },
+    "changed": false
+}
+
+ansible -i hosts.ini demo -m setup -a "filter=ansible_distribution"
+server1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "Debian"
+    },
+    "changed": false
+}
+
+ansible -i hosts.ini demo -m setup -a "filter=ansible_distribution_version"
+server1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution_version": "13.0"
+    },
+    "changed": false
+}
+
+ansible -i hosts.ini demo -m setup -a "filter=ansible_hostname"
+server1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_hostname": "debian"
+    },
+    "changed": false
+}
+
+ansible -i hosts.ini demo -m setup -a "filter=ansible_env"
+server1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_env": {
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+            "HOME": "/home/pavel",
+            "LANG": "en_US.UTF-8",
+            "LOGNAME": "pavel",
+            "MOTD_SHOWN": "pam",
+            "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/games",
+            "PWD": "/home/pavel",
+            "SHELL": "/bin/bash",
+            "SHLVL": "0",
+            "SSH_CLIENT": "192.168.88.81 58506 22",
+            "SSH_CONNECTION": "192.168.88.81 58506 192.168.88.79 22",
+            "SSH_TTY": "/dev/pts/0",
+            "TERM": "xterm-256color",
+            "USER": "pavel",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "XDG_SESSION_CLASS": "user",
+            "XDG_SESSION_ID": "39",
+            "XDG_SESSION_TYPE": "tty",
+            "_": "/bin/sh"
+        }
+    },
+    "changed": false
+}
