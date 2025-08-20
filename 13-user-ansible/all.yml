@@ -1,0 +1,5 @@
+---
+- name: All
+  hosts: demo
+  roles:
+    - create_user

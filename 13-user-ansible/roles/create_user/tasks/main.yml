@@ -1,0 +1,21 @@
+---
+- name: Create user
+  become: true
+  loop: "{{ users | dict2items }}"
+  block:
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ item.key }}"
+        password: "{{ item.value }}"
+        groups: docker
+        append: true
+        state: present
+    - name: Generate ssh key
+      ansible.builtin.command: "ssh-keygen -q -t rsa -f {{ item.key }}_id_rsa -C '' -N ''"
+      delegate_to: localhost
+      changed_when: true
+    - name: Authorized key
+      ansible.posix.authorized_key:
+        user: "{{ item.key }}"
+        key: "{{ lookup('file', item.key + '_id_rsa.pub') }}"
+        state: present
